@@ -1,0 +1,156 @@
+---
+// ComponenteNombresAroFinal.astro
+---
+
+<section class="relative bg-white w-full py-4 px-6">
+    
+    <!-- Contenedor del aro con nombres -->
+    <div class="relative w-full flex justify-center">
+        <div class="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96">
+            <!-- Imagen del aro -->
+            <img
+                id="aro-decorativo"
+                src="/imagenes/aro.webp"
+                alt="Aro decorativo"
+                class="w-full h-full object-contain"
+            />
+            
+            <!-- Nombres de los novios centrados -->
+            <div class="absolute inset-0 flex flex-col items-center justify-center">
+                <h2 id="nombre-john" class="font-great-vibes text-5xl sm:text-6xl md:text-7xl text-[#C9A961] tracking-wide">
+                    John
+                </h2>
+                <div id="ampersand" class="text-[#C9A961] text-3xl sm:text-4xl md:text-5xl font-charm my-2">
+                    &
+                </div>
+                <h2 id="nombre-damarys" class="font-great-vibes text-5xl sm:text-6xl md:text-7xl text-[#C9A961] tracking-wide">
+                    Damarys
+                </h2>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 🎬 ANIMACIONES CON GSAP                                     -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        console.log("💍 Iniciando animaciones de nombres en aro final...");
+
+        // ═══ ARO DECORATIVO - Scale desde el centro ═══
+        gsap.fromTo(
+            "#aro-decorativo",
+            { opacity: 0, scale: 0.3, rotation: -10 },
+            {
+                opacity: 1,
+                scale: 1,
+                rotation: 0,
+                duration: 1,
+                ease: "back.out(1.7)",
+                scrollTrigger: {
+                    trigger: "#aro-decorativo",
+                    start: "top 80%",
+                    once: true
+                }
+            }
+        );
+
+        // ═══ ROTACIÓN SUAVE DEL ARO (loop infinito) ═══
+        gsap.to("#aro-decorativo", {
+            rotation: 5,
+            duration: 3,
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1,
+            delay: 1.5
+        });
+
+        // ═══ NOMBRE JOHN - Letra por letra ═══
+        const textoJohn = "John";
+        const contenedorJohn = document.getElementById("nombre-john");
+        if (contenedorJohn) {
+            contenedorJohn.innerHTML = textoJohn
+                .split("")
+                .map(
+                    (letra, index) =>
+                        `<span class="letra-animada" style="
+                            opacity: 0; 
+                            display: inline-block; 
+                            transform: translateY(20px) scale(0.8);
+                            filter: blur(3px);
+                        ">${letra}</span>`
+                )
+                .join("");
+
+            gsap.to("#nombre-john .letra-animada", {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                filter: "blur(0px)",
+                duration: 0.5,
+                ease: "power2.out",
+                stagger: { each: 0.05, from: "start" },
+                delay: 0.5
+            });
+        }
+
+        // ═══ SÍMBOLO & - Scale con bounce ═══
+        gsap.fromTo(
+            "#ampersand",
+            { opacity: 0, scale: 0.5 },
+            { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(2)", delay: 0.9 }
+        );
+
+        // ═══ NOMBRE DAMARYS - Letra por letra ═══
+        const textoDamarys = "Damarys";
+        const contenedorDamarys = document.getElementById("nombre-damarys");
+        if (contenedorDamarys) {
+            contenedorDamarys.innerHTML = textoDamarys
+                .split("")
+                .map(
+                    (letra, index) =>
+                        `<span class="letra-animada" style="
+                            opacity: 0; 
+                            display: inline-block; 
+                            transform: translateY(20px) scale(0.8);
+                            filter: blur(3px);
+                        ">${letra}</span>`
+                )
+                .join("");
+
+            gsap.to("#nombre-damarys .letra-animada", {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                filter: "blur(0px)",
+                duration: 0.5,
+                ease: "power2.out",
+                stagger: { each: 0.05, from: "start" },
+                delay: 1.1
+            });
+        }
+
+        console.log("✨ Animaciones de nombres en aro final completadas!");
+    });
+</script>
+
+<style>
+    /* Efecto hover en letras animadas */
+    .letra-animada {
+        transition: all 0.3s ease;
+        will-change: transform, opacity, filter;
+        position: relative;
+    }
+
+    .letra-animada:hover {
+        transform: translateY(-3px) scale(1.1) !important;
+        text-shadow: 0 0 15px rgba(201, 169, 97, 0.5) !important;
+    }
+</style>

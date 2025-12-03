@@ -1,0 +1,172 @@
+---
+// ComponenteDressCode.astro
+---
+
+<section class="relative bg-[#E8E8E8] w-full mt-10 py-10 px-6 overflow-hidden">
+    
+    <!-- Hojas decorativas en la esquina superior derecha -->
+  <div id="hojas-derecha" class="absolute top-0 right-0 w-20 sm:w-40 md:w-48 z-0">
+        <img
+            src="/imagenes/hojas.png"
+            alt="Hojas decorativas"
+            class="w-20 h-auto object-contain scale-x-[-1] opacity-30"
+        />
+    </div>
+
+    <div class="relative max-w-2xl mx-auto z-10">
+        
+        <!-- Título "Dress Code" -->
+        <div id="titulo-dress" class="text-center mb-8">
+            <h3 class="font-great-vibes text-5xl sm:text-6xl md:text-7xl text-[#6B6B6B] tracking-wide">
+                Dress Code
+            </h3>
+        </div>
+
+        <!-- Subtítulo "FORMAL" -->
+        <div id="subtitulo-formal" class="text-center mb-8">
+            <p class="text-[#6B6B6B] text-base sm:text-lg md:text-xl font-serif uppercase tracking-widest">
+                FORMAL
+            </p>
+        </div>
+
+        <!-- Círculos de colores -->
+        <div id="circulos-colores" class="flex justify-center gap-4 sm:gap-6">
+            
+            <!-- Círculo Verde Oliva -->
+            <div class="circulo-color w-10 h-10 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-[#6B7154] shadow-lg"></div>
+            
+            <!-- Círculo Beige -->
+            <div class="circulo-color w-10 h-10  sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-[#C9B89A] shadow-lg"></div>
+            
+            <!-- Círculo Marrón -->
+            <div class="circulo-color w-10 h-10  sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-[#6B4E3D] shadow-lg"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 🎬 ANIMACIONES CON GSAP                                     -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        console.log("👔 Iniciando animaciones de dress code...");
+
+        // ═══ HOJAS DECORATIVAS ═══
+        gsap.fromTo(
+            "#hojas-derecha",
+            { opacity: 0, x: 50, y: -50 },
+            {
+                opacity: 1,
+                x: 0,
+                y: 0,
+                duration: 1,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: "section",
+                    start: "top 80%",
+                    once: true
+                }
+            }
+        );
+
+        // ═══ TÍTULO "DRESS CODE" ═══
+        gsap.fromTo(
+            "#titulo-dress",
+            { opacity: 0, y: -30 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: "#titulo-dress",
+                    start: "top 80%",
+                    once: true
+                },
+                delay: 0.3
+            }
+        );
+
+        // ═══ SUBTÍTULO "FORMAL" ═══
+        gsap.fromTo(
+            "#subtitulo-formal",
+            { opacity: 0, scale: 0.8 },
+            {
+                opacity: 1,
+                scale: 1,
+                duration: 0.6,
+                ease: "back.out(1.5)",
+                scrollTrigger: {
+                    trigger: "#subtitulo-formal",
+                    start: "top 80%",
+                    once: true
+                },
+                delay: 0.6
+            }
+        );
+
+        // ═══ CÍRCULOS DE COLORES ═══
+        gsap.fromTo(
+            ".circulo-color",
+            { opacity: 0, scale: 0, rotation: -180 },
+            {
+                opacity: 1,
+                scale: 1,
+                rotation: 0,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: "back.out(1.7)",
+                scrollTrigger: {
+                    trigger: "#circulos-colores",
+                    start: "top 80%",
+                    once: true
+                },
+                delay: 0.9
+            }
+        );
+
+        // ═══ ANIMACIÓN DE PULSO EN LOS CÍRCULOS ═══
+        gsap.to(".circulo-color", {
+            scale: 1.05,
+            duration: 1.5,
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1,
+            stagger: {
+                each: 0.3,
+                repeat: -1
+            },
+            delay: 2
+        });
+
+        console.log("✨ Animaciones de dress code completadas!");
+    });
+</script>
+
+<style>
+    /* Transiciones suaves */
+    .circulo-color {
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    /* Efecto hover en círculos */
+    .circulo-color:hover {
+        transform: scale(1.15);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Efecto hover en título */
+    #titulo-dress:hover {
+        transform: scale(1.05);
+        transition: transform 0.3s ease;
+    }
+</style>

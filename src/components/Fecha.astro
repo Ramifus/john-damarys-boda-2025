@@ -1,0 +1,129 @@
+---
+// ComponenteFecha.astro
+---
+
+<section class="relative bg-white w-full py-2 px-6">
+    
+    <div class="max-w-2xl mx-auto text-center">
+        
+        <!-- Título "¡NOS CASAMOS!" -->
+        <div id="titulo-nos-casamos" class="mb-8">
+            <h2 class="font-serif text-[#C9A961] text-2xl sm:text-3xl md:text-4xl tracking-widest uppercase">
+                ¡NOS CASAMOS!
+            </h2>
+        </div>
+
+        <!-- Fecha con números grandes -->
+        <div class="flex items-center justify-center gap-4">
+            
+            <!-- Día -->
+            <div id="dia-numero">
+                <span class="font-serif text-[#7A7A7A] text-7xl sm:text-8xl md:text-9xl font-bold leading-none">
+                    04
+                </span>
+            </div>
+
+            <!-- Mes y Año -->
+            <div id="mes-anio" class="flex flex-col items-start text-left">
+                <span class="font-great-vibes text-[#C9A961] text-4xl sm:text-5xl md:text-6xl leading-tight">
+                    Enero
+                </span>
+                <span class="font-serif text-[#7A7A7A] text-xl sm:text-2xl md:text-3xl tracking-wider">
+                    DE 2026
+                </span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 🎬 ANIMACIONES CON GSAP                                     -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        console.log("🎊 Iniciando animaciones de fecha...");
+
+        // ═══ TÍTULO "¡NOS CASAMOS!" ═══
+        gsap.fromTo(
+            "#titulo-nos-casamos",
+            { opacity: 0, y: -30 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: "#titulo-nos-casamos",
+                    start: "top 80%",
+                    once: true
+                }
+            }
+        );
+
+        // ═══ DÍA (número 28) ═══
+        gsap.fromTo(
+            "#dia-numero",
+            { opacity: 0, scale: 0.5, rotation: -10 },
+            {
+                opacity: 1,
+                scale: 1,
+                rotation: 0,
+                duration: 1,
+                ease: "back.out(1.7)",
+                delay: 0.3,
+                scrollTrigger: {
+                    trigger: "#dia-numero",
+                    start: "top 80%",
+                    once: true
+                }
+            }
+        );
+
+        // ═══ MES Y AÑO ═══
+        gsap.fromTo(
+            "#mes-anio",
+            { opacity: 0, x: 50 },
+            {
+                opacity: 1,
+                x: 0,
+                duration: 0.8,
+                ease: "power2.out",
+                delay: 0.6,
+                scrollTrigger: {
+                    trigger: "#mes-anio",
+                    start: "top 80%",
+                    once: true
+                }
+            }
+        );
+
+        console.log("✨ Animaciones de fecha completadas!");
+    });
+</script>
+
+<style>
+    /* Transiciones suaves */
+    section * {
+        transition: all 0.3s ease;
+    }
+
+    /* Efecto hover en el día */
+    #dia-numero:hover {
+        transform: scale(1.05);
+        cursor: default;
+    }
+
+    /* Efecto hover en mes */
+    #mes-anio:hover {
+        transform: translateX(5px);
+        cursor: default;
+    }
+</style>

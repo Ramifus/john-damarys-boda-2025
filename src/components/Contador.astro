@@ -1,0 +1,179 @@
+---
+// ContadorRegresivo.astro
+---
+
+<section class="relative bg-white w-full py-16 px-6">
+    
+    <div class="max-w-4xl mx-auto">
+        
+        <!-- Contenedor del contador con borde redondeado -->
+        <div 
+            id="contador-container"
+            class="border-2 border-[#C9A961] rounded-3xl p-8 sm:p-10 md:p-12 bg-white shadow-lg"
+        >
+            
+            <!-- Grid del contador -->
+            <div class="grid grid-cols-4 gap-4 sm:gap-6 md:gap-8 mb-6">
+                
+                <!-- DÍAS -->
+                <div id="dias-box" class="flex flex-col items-center">
+                    <div class="text-4xl sm:text-5xl md:text-6xl font-bold text-[#7A7A7A] mb-2" id="dias">
+                        00
+                    </div>
+                    <span class="text-xs sm:text-sm md:text-base text-[#C9A961] uppercase tracking-wider font-serif">
+                        DÍAS
+                    </span>
+                </div>
+
+                <!-- HORAS -->
+                <div id="horas-box" class="flex flex-col items-center">
+                    <div class="text-4xl sm:text-5xl md:text-6xl font-bold text-[#7A7A7A] mb-2" id="horas">
+                        00
+                    </div>
+                    <span class="text-xs sm:text-sm md:text-base text-[#C9A961] uppercase tracking-wider font-serif">
+                        HRS.
+                    </span>
+                </div>
+
+                <!-- MINUTOS -->
+                <div id="minutos-box" class="flex flex-col items-center">
+                    <div class="text-4xl sm:text-5xl md:text-6xl font-bold text-[#7A7A7A] mb-2" id="minutos">
+                        00
+                    </div>
+                    <span class="text-xs sm:text-sm md:text-base text-[#C9A961] uppercase tracking-wider font-serif">
+                        MIN.
+                    </span>
+                </div>
+
+                <!-- SEGUNDOS -->
+                <div id="segundos-box" class="flex flex-col items-center">
+                    <div class="text-4xl sm:text-5xl md:text-6xl font-bold text-[#7A7A7A] mb-2" id="segundos">
+                        00
+                    </div>
+                    <span class="text-xs sm:text-sm md:text-base text-[#C9A961] uppercase tracking-wider font-serif">
+                        SEG.
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 🎬 ANIMACIONES Y CONTADOR CON GSAP                          -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        console.log("⏰ Iniciando contador regresivo...");
+
+        // Fecha objetivo: 4 de enero de 2026 a las 17:00
+        const fechaObjetivo = new Date("2026-01-04T17:00:00").getTime();
+
+        // Elementos del DOM
+        const diasEl = document.getElementById("dias");
+        const horasEl = document.getElementById("horas");
+        const minutosEl = document.getElementById("minutos");
+        const segundosEl = document.getElementById("segundos");
+
+        // Función para actualizar el contador
+        function actualizarContador() {
+            const ahora = new Date().getTime();
+            const diferencia = fechaObjetivo - ahora;
+
+            if (diferencia <= 0) {
+                // Si ya pasó la fecha
+                diasEl.textContent = "00";
+                horasEl.textContent = "00";
+                minutosEl.textContent = "00";
+                segundosEl.textContent = "00";
+                return;
+            }
+
+            // Calcular tiempo restante
+            const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+            const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+            // Actualizar el DOM con formato de dos dígitos
+            diasEl.textContent = dias.toString().padStart(2, "0");
+            horasEl.textContent = horas.toString().padStart(2, "0");
+            minutosEl.textContent = minutos.toString().padStart(2, "0");
+            segundosEl.textContent = segundos.toString().padStart(2, "0");
+
+            // Animación en los segundos cada vez que cambian
+            gsap.fromTo(
+                segundosEl,
+                { scale: 1.2, color: "#C9A961" },
+                { scale: 1, color: "#7A7A7A", duration: 0.3, ease: "power2.out" }
+            );
+        }
+
+        // Actualizar cada segundo
+        actualizarContador();
+        setInterval(actualizarContador, 1000);
+
+        // ═══ ANIMACIÓN DE ENTRADA CON SCROLL ═══
+        gsap.fromTo(
+            "#contador-container",
+            { opacity: 0, scale: 0.8, y: 50 },
+            {
+                opacity: 1,
+                scale: 1,
+                y: 0,
+                duration: 1,
+                ease: "back.out(1.4)",
+                scrollTrigger: {
+                    trigger: "#contador-container",
+                    start: "top 80%",
+                    once: true
+                }
+            }
+        );
+
+        // ═══ ANIMACIÓN DE CADA CAJA DE NÚMERO ═══
+        gsap.fromTo(
+            "#dias-box, #horas-box, #minutos-box, #segundos-box",
+            { opacity: 0, y: 20 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                stagger: 0.15,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: "#contador-container",
+                    start: "top 80%",
+                    once: true
+                },
+                delay: 0.5
+            }
+        );
+
+        console.log("✨ Contador regresivo iniciado!");
+    });
+</script>
+
+<style>
+    /* Transiciones suaves */
+    #contador-container {
+        transition: all 0.3s ease;
+    }
+
+    /* Efecto hover en las cajas */
+    #dias-box:hover,
+    #horas-box:hover,
+    #minutos-box:hover,
+    #segundos-box:hover {
+        transform: translateY(-5px);
+    }
+</style>

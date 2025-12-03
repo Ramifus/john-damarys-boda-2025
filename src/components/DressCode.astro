@@ -1,0 +1,137 @@
+---
+// ComponenteDressCode.astro
+---
+
+<section class="relative bg-[#E8E8E8] w-full mt-10 py-10 px-6 overflow-hidden">
+    
+    <!-- Hojas decorativas en la esquina superior derecha -->
+    <div id="hojas-derecha" class="absolute top-0 right-0 w-20 sm:w-40 md:w-48 z-0">
+        <img
+            src="/imagenes/hojas.png"
+            alt="Hojas decorativas"
+            class="w-20 h-auto object-contain scale-x-[-1] opacity-30"
+        />
+    </div>
+
+    <div class="relative max-w-2xl mx-auto z-10">
+        
+        <!-- Título "Código de Vestimenta" -->
+        <div id="titulo-dress" class="text-center mb-8">
+            <h3 class="font-great-vibes text-5xl sm:text-6xl md:text-7xl text-[#6B6B6B] tracking-wide">
+                Código de Vestimenta
+            </h3>
+        </div>
+
+        <!-- Subtítulo "FORMAL" -->
+        <div id="subtitulo-formal" class="text-center mb-6">
+            <p class="text-[#6B6B6B] text-base sm:text-lg md:text-xl font-serif uppercase tracking-widest">
+                TRAJE FORMAL
+            </p>
+        </div>
+
+        <!-- Texto: Evitar el color blanco -->
+        <div id="texto-evitar" class="text-center">
+            <p class="text-[#6B6B6B] text-sm sm:text-base font-serif">
+                MUJERES: EVITAR EL COLOR BLANCO
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 🎬 ANIMACIONES CON GSAP                                     -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        console.log("👔 Iniciando animaciones de código de vestimenta...");
+
+        // ═══ HOJAS DECORATIVAS ═══
+        gsap.fromTo(
+            "#hojas-derecha",
+            { opacity: 0, x: 50, y: -50 },
+            {
+                opacity: 0.3,
+                x: 0,
+                y: 0,
+                duration: 1,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: "section",
+                    start: "top 80%",
+                    once: true
+                }
+            }
+        );
+
+        // ═══ TÍTULO "CÓDIGO DE VESTIMENTA" ═══
+        gsap.fromTo(
+            "#titulo-dress",
+            { opacity: 0, y: -30 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: "#titulo-dress",
+                    start: "top 80%",
+                    once: true
+                },
+                delay: 0.3
+            }
+        );
+
+        // ═══ SUBTÍTULO "TRAJE FORMAL" ═══
+        gsap.fromTo(
+            "#subtitulo-formal",
+            { opacity: 0, scale: 0.8 },
+            {
+                opacity: 1,
+                scale: 1,
+                duration: 0.6,
+                ease: "back.out(1.5)",
+                scrollTrigger: {
+                    trigger: "#subtitulo-formal",
+                    start: "top 80%",
+                    once: true
+                },
+                delay: 0.6
+            }
+        );
+
+        // ═══ TEXTO "EVITAR EL COLOR BLANCO" ═══
+        gsap.fromTo(
+            "#texto-evitar",
+            { opacity: 0, y: 20 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: "#texto-evitar",
+                    start: "top 80%",
+                    once: true
+                },
+                delay: 0.9
+            }
+        );
+
+        console.log("✨ Animaciones de código de vestimenta completadas!");
+    });
+</script>
+
+<style>
+    /* Efecto hover en título */
+    #titulo-dress:hover {
+        transform: scale(1.05);
+        transition: transform 0.3s ease;
+    }
+</style>

@@ -1,0 +1,167 @@
+---
+// ComponenteConfirmarAsistencia.astro
+---
+
+<section class="relative bg-white w-full py-16 px-6">
+    
+    <div class="max-w-lg mx-auto">
+        
+        <!-- Título "Confirma tu Asistencia" -->
+        <div id="titulo-asistencia" class="text-center mb-6">
+            <h3 class="font-great-vibes text-5xl sm:text-6xl md:text-7xl text-[#C9A961] tracking-wide">
+                Confirma tu Asistencia
+            </h3>
+        </div>
+
+        <!-- Texto explicativo -->
+        <div id="texto-asistencia" class="text-center mb-8">
+            <p class="text-[#6B6B6B] text-sm sm:text-base font-serif leading-relaxed">
+                SERÁ DE MUCHA ALEGRÍA PARA NOSOTROS CONTAR<br />
+                CON TU COMPAÑÍA EN ESTE DÍA TAN IMPORTANTE.
+            </p>
+        </div>
+
+        <!-- Formulario -->
+        <div id="formulario-asistencia">
+            
+            <!-- Campo: Nombre y Apellido -->
+            <div class="mb-6">
+                <label class="block text-[#6B6B6B] text-sm font-serif uppercase tracking-wider mb-2">
+                    NOMBRE Y APELLIDO
+                </label>
+                <input
+                    type="text"
+                    placeholder=""
+                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-[#C9A961] focus:outline-none transition-colors duration-300"
+                />
+            </div>
+
+            <!-- Campo: Confirmación -->
+            <div class="mb-6">
+                <label class="block text-[#6B6B6B] text-sm font-serif uppercase tracking-wider mb-2">
+                    CONFIRMACIÓN
+                </label>
+                <select
+                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-[#C9A961] focus:outline-none transition-colors duration-300 text-gray-500"
+                >
+                    <option value="">SÍ, AHÍ ESTARÉ</option>
+                    <option value="no">NO PODRÉ ASISTIR</option>
+                </select>
+            </div>
+
+            <!-- Campo: Algo que quieras decirnos -->
+            <div class="mb-8">
+                <label class="block text-[#6B6B6B] text-sm font-serif uppercase tracking-wider mb-2">
+                    ALGO QUE QUIERAS DECIRNOS...
+                </label>
+                <textarea
+                    rows="4"
+                    placeholder=""
+                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-[#C9A961] focus:outline-none transition-colors duration-300 resize-none"
+                ></textarea>
+            </div>
+
+            <!-- Botón Enviar -->
+            <div class="text-center">
+                <button
+                    type="submit"
+                    class="bg-[#6B7154] text-white px-12 py-4 rounded-lg text-base font-serif uppercase tracking-wider hover:bg-[#5a5e45] transition-all duration-300 shadow-md hover:shadow-lg"
+                >
+                    ENVIAR
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 🎬 ANIMACIONES CON GSAP                                     -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        console.log("✉️ Iniciando animaciones de confirmar asistencia...");
+
+        // ═══ TÍTULO "CONFIRMA TU ASISTENCIA" ═══
+        gsap.fromTo(
+            "#titulo-asistencia",
+            { opacity: 0, y: -30 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: "#titulo-asistencia",
+                    start: "top 80%",
+                    once: true
+                }
+            }
+        );
+
+        // ═══ TEXTO EXPLICATIVO ═══
+        gsap.fromTo(
+            "#texto-asistencia",
+            { opacity: 0, y: 20 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: "#texto-asistencia",
+                    start: "top 80%",
+                    once: true
+                },
+                delay: 0.3
+            }
+        );
+
+        // ═══ FORMULARIO - Campos aparecen uno por uno ═══
+        gsap.fromTo(
+            "#formulario-asistencia > div",
+            { opacity: 0, x: -30 },
+            {
+                opacity: 1,
+                x: 0,
+                duration: 0.6,
+                stagger: 0.2,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: "#formulario-asistencia",
+                    start: "top 80%",
+                    once: true
+                },
+                delay: 0.5
+            }
+        );
+
+        console.log("✨ Animaciones de confirmar asistencia completadas!");
+    });
+</script>
+
+<style>
+    /* Efecto hover en el título */
+    #titulo-asistencia:hover {
+        transform: scale(1.05);
+        transition: transform 0.3s ease;
+    }
+
+    /* Animación del botón al hacer clic */
+    button:active {
+        transform: scale(0.95);
+    }
+
+    /* Placeholder styling */
+    input::placeholder,
+    textarea::placeholder {
+        color: #d1d5db;
+    }
+</style>

@@ -1,0 +1,284 @@
+---
+// ComponenteItinerario.astro
+---
+
+<section class="relative bg-white w-full py-16 px-6">
+    
+    <div class="max-w-3xl mx-auto">
+        
+        <!-- Título "Itinerario" -->
+        <div id="titulo-itinerario" class="text-center mb-12">
+            <h3 class="font-great-vibes text-5xl sm:text-6xl md:text-7xl text-[#C9A961] tracking-wide">
+                Itinerario
+            </h3>
+        </div>
+
+        <!-- Contenedor del itinerario con línea -->
+        <div class="relative">
+            
+            <!-- Línea vertical central -->
+            <div id="linea-vertical" class="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-[#C9A961] h-full opacity-30"></div>
+
+            <!-- Grid de eventos -->
+            <div class="space-y-8">
+
+                <!-- EVENTO 1: Ceremonia Religiosa (Izquierda) -->
+                <div class="grid grid-cols-2 gap-8 items-center">
+                    <!-- Izquierda: Ceremonia -->
+                    <div id="evento-1" class="flex justify-center pr-8">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="w-16 h-16 sm:w-20 sm:h-20 mb-3">
+                                <img
+                                    src="/imagenes/iglesia.png"
+                                    alt="Ceremonia Religiosa"
+                                    class="w-full h-full object-contain"
+                                    style="filter: brightness(0) saturate(100%) invert(73%) sepia(18%) saturate(574%) hue-rotate(359deg) brightness(92%) contrast(87%);"
+                                />
+                            </div>
+                            <p class="text-3xl sm:text-4xl font-bold text-[#C9A961] font-serif mb-1">13:45</p>
+                            <p class="text-xs sm:text-sm text-[#6B6B6B] font-serif uppercase tracking-wider">CEREMONIA</p>
+                            <p class="text-xs sm:text-sm text-[#6B6B6B] font-serif uppercase tracking-wider">RELIGIOSA</p>
+                        </div>
+                    </div>
+                    <!-- Derecha: Vacío -->
+                    <div></div>
+                </div>
+
+                <!-- EVENTO 2: Recepción Social (Derecha) -->
+                <div class="grid grid-cols-2 gap-8 items-center">
+                    <!-- Izquierda: Vacío -->
+                    <div></div>
+                    <!-- Derecha: Recepción -->
+                    <div id="evento-2" class="flex justify-center pl-8">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="w-16 h-16 sm:w-20 sm:h-20 mb-3">
+                                <img
+                                    src="/imagenes/iglesia.png"
+                                    alt="Recepción Social"
+                                    class="w-full h-full object-contain"
+                                    style="filter: brightness(0) saturate(100%) invert(73%) sepia(18%) saturate(574%) hue-rotate(359deg) brightness(92%) contrast(87%);"
+                                />
+                            </div>
+                            <p class="text-3xl sm:text-4xl font-bold text-[#C9A961] font-serif mb-1">16:00</p>
+                            <p class="text-xs sm:text-sm text-[#6B6B6B] font-serif uppercase tracking-wider">RECEPCIÓN</p>
+                            <p class="text-xs sm:text-sm text-[#6B6B6B] font-serif uppercase tracking-wider">SOCIAL</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EVENTO 3: Vals de los Novios (Izquierda) -->
+                <div class="grid grid-cols-2 gap-8 items-center">
+                    <!-- Izquierda: Vals -->
+                    <div id="evento-3" class="flex justify-center pr-8">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="w-16 h-16 sm:w-20 sm:h-20 mb-3">
+                                <img
+                                    src="/imagenes/iglesia.png"
+                                    alt="Vals de los Novios"
+                                    class="w-full h-full object-contain"
+                                    style="filter: brightness(0) saturate(100%) invert(73%) sepia(18%) saturate(574%) hue-rotate(359deg) brightness(92%) contrast(87%);"
+                                />
+                            </div>
+                            <p class="text-3xl sm:text-4xl font-bold text-[#C9A961] font-serif mb-1">17:00</p>
+                            <p class="text-xs sm:text-sm text-[#6B6B6B] font-serif uppercase tracking-wider">VALS DE LOS</p>
+                            <p class="text-xs sm:text-sm text-[#6B6B6B] font-serif uppercase tracking-wider">NOVIOS</p>
+                        </div>
+                    </div>
+                    <!-- Derecha: Vacío -->
+                    <div></div>
+                </div>
+
+                <!-- EVENTO 4: Cena (Derecha) -->
+                <div class="grid grid-cols-2 gap-8 items-center">
+                    <!-- Izquierda: Vacío -->
+                    <div></div>
+                    <!-- Derecha: Cena -->
+                    <div id="evento-4" class="flex justify-center pl-8">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="w-16 h-16 sm:w-20 sm:h-20 mb-3">
+                                <img
+                                    src="/imagenes/iglesia.png"
+                                    alt="Cena"
+                                    class="w-full h-full object-contain"
+                                    style="filter: brightness(0) saturate(100%) invert(73%) sepia(18%) saturate(574%) hue-rotate(359deg) brightness(92%) contrast(87%);"
+                                />
+                            </div>
+                            <p class="text-3xl sm:text-4xl font-bold text-[#C9A961] font-serif mb-1">19:00</p>
+                            <p class="text-xs sm:text-sm text-[#6B6B6B] font-serif uppercase tracking-wider">UNA DELICIOSA</p>
+                            <p class="text-xs sm:text-sm text-[#6B6B6B] font-serif uppercase tracking-wider">CENA</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EVENTO 5: Baile (Izquierda) -->
+                <div class="grid grid-cols-2 gap-8 items-center">
+                    <!-- Izquierda: Baile -->
+                    <div id="evento-5" class="flex justify-center pr-8">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="w-16 h-16 sm:w-20 sm:h-20 mb-3">
+                                <img
+                                    src="/imagenes/iglesia.png"
+                                    alt="Baile"
+                                    class="w-full h-full object-contain"
+                                    style="filter: brightness(0) saturate(100%) invert(73%) sepia(18%) saturate(574%) hue-rotate(359deg) brightness(92%) contrast(87%);"
+                                />
+                            </div>
+                            <p class="text-3xl sm:text-4xl font-bold text-[#C9A961] font-serif mb-1">21:00</p>
+                            <p class="text-xs sm:text-sm text-[#6B6B6B] font-serif uppercase tracking-wider">¡A BAILAR!</p>
+                        </div>
+                    </div>
+                    <!-- Derecha: Vacío -->
+                    <div></div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 🎬 ANIMACIONES CON GSAP                                     -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        console.log("📅 Iniciando animaciones de itinerario...");
+
+        // ═══ TÍTULO "ITINERARIO" ═══
+        gsap.fromTo(
+            "#titulo-itinerario",
+            { opacity: 0, y: -30 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: "#titulo-itinerario",
+                    start: "top 80%",
+                    once: true
+                }
+            }
+        );
+
+        // ═══ LÍNEA VERTICAL ═══
+        gsap.fromTo(
+            "#linea-vertical",
+            { scaleY: 0, transformOrigin: "top" },
+            {
+                scaleY: 1,
+                duration: 1.5,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: "#linea-vertical",
+                    start: "top 80%",
+                    once: true
+                },
+                delay: 0.3
+            }
+        );
+
+        // ═══ EVENTOS - Animación alternada ═══
+        gsap.fromTo(
+            "#evento-1",
+            { opacity: 0, x: -50 },
+            {
+                opacity: 1,
+                x: 0,
+                duration: 0.8,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: "#evento-1",
+                    start: "top 85%",
+                    once: true
+                },
+                delay: 0.5
+            }
+        );
+
+        gsap.fromTo(
+            "#evento-2",
+            { opacity: 0, x: 50 },
+            {
+                opacity: 1,
+                x: 0,
+                duration: 0.8,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: "#evento-2",
+                    start: "top 85%",
+                    once: true
+                },
+                delay: 0.5
+            }
+        );
+
+        gsap.fromTo(
+            "#evento-3",
+            { opacity: 0, x: -50 },
+            {
+                opacity: 1,
+                x: 0,
+                duration: 0.8,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: "#evento-3",
+                    start: "top 85%",
+                    once: true
+                },
+                delay: 0.5
+            }
+        );
+
+        gsap.fromTo(
+            "#evento-4",
+            { opacity: 0, x: 50 },
+            {
+                opacity: 1,
+                x: 0,
+                duration: 0.8,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: "#evento-4",
+                    start: "top 85%",
+                    once: true
+                },
+                delay: 0.5
+            }
+        );
+
+        gsap.fromTo(
+            "#evento-5",
+            { opacity: 0, x: -50 },
+            {
+                opacity: 1,
+                x: 0,
+                duration: 0.8,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: "#evento-5",
+                    start: "top 85%",
+                    once: true
+                },
+                delay: 0.5
+            }
+        );
+
+        console.log("✨ Animaciones de itinerario completadas!");
+    });
+</script>
+
+<style>
+    /* Transiciones suaves */
+    section img:hover {
+        transform: scale(1.1) rotate(5deg);
+        transition: transform 0.3s ease;
+    }
+</style>
