@@ -52,23 +52,33 @@
         </div>
 
         <!-- Tarjeta de QR (Cuenta Bancaria) -->
-        <div id="tarjeta-qr" class="bg-transparent border-2 border-white rounded-3xl p-8">
-            <div class="flex flex-col items-center text-center">
-                <!-- Icono de QR (temporal con iglesia.png) -->
-                <div class="w-40 h-40 sm:w-40 sm:h-40 mb-4 bg-white rounded-lg">
-                    <img
-                        src="/imagenes/qr.png"
-                        alt="Código QR"
-                        class="w-full h-full object-contain"
-                    />
-                </div>
-                <!-- Texto -->
-                <p class="text-white text-xs sm:text-sm font-serif uppercase tracking-wider">
-                    CUENTA GANADERO S.A.<br />
-                    000004080988888
-                </p>
-            </div>
+ <div id="tarjeta-qr" class="bg-transparent border-2 border-white rounded-3xl p-8">
+    <div class="flex flex-col items-center text-center">
+        <!-- Nombre del Banco -->
+        <h3 class="text-white text-lg sm:text-xl font-serif uppercase tracking-wider mb-4">
+            Banco Ganadero S.A.
+        </h3>
+        
+        <!-- Icono de QR -->
+        <div class="w-40 h-40 sm:w-40 sm:h-40 mb-4 bg-white rounded-lg">
+            <img
+                src="/imagenes/qr2.png"
+                alt="Código QR"
+                class="w-full h-full object-contain"
+            />
         </div>
+        
+        <!-- Número de cuenta -->
+        <!-- <p class="text-white text-sm sm:text-base font-serif uppercase tracking-wider mb-2">
+            000004080988888
+        </p> -->
+        
+        <!-- Titular de la cuenta -->
+        <p class="text-white text-xl sm:text-sm font-serif">
+            Perez Mendoza John Vicente
+        </p>
+    </div>
+</div>
 
     </div>
 

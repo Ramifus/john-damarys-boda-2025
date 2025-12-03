@@ -1,0 +1,312 @@
+---
+// NombresFlores.astro (ComponenteInvitacion.astro)
+---
+
+<section class="relative bg-white w-full min-h-screen overflow-hidden">
+    
+    <!-- REPRODUCTOR DE MÚSICA - Fijo en la esquina superior derecha -->
+    <div id="reproductor-fijo" class="fixed top-4 right-4 z-40">
+        
+        <!-- Reproductor de música circular con glassmorphism -->
+        <div id="reproductor-container" class="relative">
+            
+            <!-- Círculo del reproductor con efecto blur -->
+            <button 
+                id="btn-reproducir"
+                class="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full backdrop-blur-md bg-gradient-to-br from-[#C9A961]/30 to-[#6B7154]/30 shadow-xl flex items-center justify-center transition-all duration-300 hover:scale-105 border-2 border-white/40 hover:border-[#C9A961]/60"
+                title="Reproducir música"
+            >
+                <!-- Ícono de Play -->
+                <svg 
+                    id="icono-play" 
+                    class="w-6 h-6 sm:w-8 sm:h-8 text-white drop-shadow-lg transition-all duration-300"
+                    fill="currentColor" 
+                    viewBox="0 0 24 24"
+                >
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+                
+                <!-- Ícono de Pause -->
+                <svg 
+                    id="icono-pause" 
+                    class="hidden w-6 h-6 sm:w-8 sm:h-8 text-white drop-shadow-lg transition-all duration-300"
+                    fill="currentColor" 
+                    viewBox="0 0 24 24"
+                >
+                    <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+                </svg>
+            </button>
+            
+            <!-- Ondas de sonido animadas -->
+            <div id="ondas-sonido" class="hidden absolute inset-0 pointer-events-none">
+                <div class="absolute inset-0 rounded-full border-2 border-[#C9A961]/50 opacity-75 animate-ping"></div>
+                <div class="absolute inset-0 rounded-full border-2 border-white/30 opacity-50 animate-ping" style="animation-delay: 0.5s;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio element (oculto) -->
+    <audio id="audio-player" preload="auto" loop>
+        <source src="/musica/melodia.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    <!-- Imagen Principal con desvanecimiento -->
+    <div class="relative w-full">
+        <!-- Imagen principal -->
+        <div class="relative w-full h-[500px] sm:h-[600px] md:h-[700px]">
+            <img
+                id="imagen-principal"
+                src="/imagenes/fotoprincipal.webp"
+                alt="Foto de los novios"
+                class="w-full h-full object-cover"
+            />
+            
+            <!-- Degradado de desvanecimiento -->
+            <div id="degradado" class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white to-transparent"></div>
+        </div>
+    </div>
+
+    <!-- Texto de invitación -->
+    <div id="texto-invitacion" class="relative w-full px-6 py-8 text-center">
+        <p class="font-serif text-gray-700 text-base sm:text-lg md:text-xl tracking-wide">
+            TENEMOS EL HONOR<br />
+            DE INVITARTE A NUESTRA BODA
+        </p>
+    </div>
+
+    <!-- Contenedor del aro con nombres -->
+    <div class="relative w-full flex justify-center pb-12">
+        <div class="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96">
+            <!-- Imagen del aro -->
+            <img
+                id="aro-decorativo"
+                src="/imagenes/aro.webp"
+                alt="Aro decorativo"
+                class="w-full h-full object-contain"
+            />
+            
+            <!-- Nombres de los novios centrados -->
+            <div class="absolute inset-0 flex flex-col items-center justify-center">
+                <h2 id="nombre-john" class="font-great-vibes text-5xl sm:text-6xl md:text-7xl text-[#C9A961] tracking-wide">
+                    John
+                </h2>
+                <div id="ampersand" class="text-[#C9A961] text-3xl sm:text-4xl md:text-5xl font-charm my-2">
+                    &
+                </div>
+                <h2 id="nombre-damarys" class="font-great-vibes text-5xl sm:text-6xl md:text-7xl text-[#C9A961] tracking-wide">
+                    Damarys
+                </h2>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 🎬 ANIMACIONES CON GSAP Y REPRODUCTOR                       -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<script>
+    import { gsap } from "gsap";
+
+    document.addEventListener("DOMContentLoaded", () => {
+        console.log("🎊 Iniciando animaciones de invitación...");
+
+        // ═══ REPRODUCTOR DE MÚSICA ═══
+        const audio = document.getElementById("audio-player");
+        const btnReproducir = document.getElementById("btn-reproducir");
+        const iconoPlay = document.getElementById("icono-play");
+        const iconoPause = document.getElementById("icono-pause");
+        const ondasSonido = document.getElementById("ondas-sonido");
+
+        let estaReproduciendo = false;
+
+        btnReproducir?.addEventListener("click", () => {
+            if (!estaReproduciendo) {
+                // Reproducir música
+                audio?.play();
+                estaReproduciendo = true;
+                
+                // Cambiar iconos
+                iconoPlay?.classList.add("hidden");
+                iconoPause?.classList.remove("hidden");
+                
+                // Mostrar ondas de sonido
+                ondasSonido?.classList.remove("hidden");
+                
+            } else {
+                // Pausar música
+                audio?.pause();
+                estaReproduciendo = false;
+                
+                // Cambiar iconos
+                iconoPlay?.classList.remove("hidden");
+                iconoPause?.classList.add("hidden");
+                
+                // Ocultar ondas de sonido
+                ondasSonido?.classList.add("hidden");
+            }
+        });
+
+        // Reiniciar cuando termine la canción
+        audio?.addEventListener("ended", () => {
+            estaReproduciendo = false;
+            iconoPlay?.classList.remove("hidden");
+            iconoPause?.classList.add("hidden");
+            ondasSonido?.classList.add("hidden");
+        });
+
+        // ═══ IMAGEN PRINCIPAL - Fade in desde arriba ═══
+        gsap.fromTo(
+            "#imagen-principal",
+            { opacity: 0, y: -50 },
+            { opacity: 1, y: 0, duration: 1, ease: "power2.out", delay: 0 }
+        );
+
+        // ═══ DEGRADADO - Aparece después de la imagen ═══
+        gsap.fromTo(
+            "#degradado",
+            { opacity: 0 },
+            { opacity: 1, duration: 0.8, ease: "power2.out", delay: 0.5 }
+        );
+
+        // ═══ TEXTO DE INVITACIÓN - Fade in desde abajo ═══
+        gsap.fromTo(
+            "#texto-invitacion",
+            { opacity: 0, y: 30 },
+            { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 0.8 }
+        );
+
+        // ═══ ARO DECORATIVO - Scale desde el centro ═══
+        gsap.fromTo(
+            "#aro-decorativo",
+            { opacity: 0, scale: 0.3, rotation: -10 },
+            { opacity: 1, scale: 1, rotation: 0, duration: 1, ease: "back.out(1.7)", delay: 1.2 }
+        );
+
+        // ═══ NOMBRE JOHN - Letra por letra ═══
+        const textoJohn = "John";
+        const contenedorJohn = document.getElementById("nombre-john");
+        if (contenedorJohn) {
+            contenedorJohn.innerHTML = textoJohn
+                .split("")
+                .map(
+                    (letra, index) =>
+                        `<span class="letra-animada" style="
+                            opacity: 0; 
+                            display: inline-block; 
+                            transform: translateY(20px) scale(0.8);
+                            filter: blur(3px);
+                        ">${letra}</span>`
+                )
+                .join("");
+
+            gsap.to("#nombre-john .letra-animada", {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                filter: "blur(0px)",
+                duration: 0.5,
+                ease: "power2.out",
+                stagger: { each: 0.05, from: "start" },
+                delay: 1.6
+            });
+        }
+
+        // ═══ SÍMBOLO & - Scale con bounce ═══
+        gsap.fromTo(
+            "#ampersand",
+            { opacity: 0, scale: 0.5 },
+            { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(2)", delay: 2 }
+        );
+
+        // ═══ NOMBRE DAMARYS - Letra por letra ═══
+        const textoDamarys = "Damarys";
+        const contenedorDamarys = document.getElementById("nombre-damarys");
+        if (contenedorDamarys) {
+            contenedorDamarys.innerHTML = textoDamarys
+                .split("")
+                .map(
+                    (letra, index) =>
+                        `<span class="letra-animada" style="
+                            opacity: 0; 
+                            display: inline-block; 
+                            transform: translateY(20px) scale(0.8);
+                            filter: blur(3px);
+                        ">${letra}</span>`
+                )
+                .join("");
+
+            gsap.to("#nombre-damarys .letra-animada", {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                filter: "blur(0px)",
+                duration: 0.5,
+                ease: "power2.out",
+                stagger: { each: 0.05, from: "start" },
+                delay: 2.2
+            });
+        }
+
+        // ═══ ROTACIÓN SUAVE DEL ARO (loop infinito) ═══
+        gsap.to("#aro-decorativo", {
+            rotation: 5,
+            duration: 3,
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1,
+            delay: 3
+        });
+
+        console.log("✨ Animaciones completadas!");
+    });
+</script>
+
+<style>
+    /* Asegurar que las imágenes carguen correctamente */
+    img {
+        display: block;
+    }
+    
+    /* Efecto hover en letras animadas */
+    .letra-animada {
+        transition: all 0.3s ease;
+        will-change: transform, opacity, filter;
+        position: relative;
+    }
+
+    .letra-animada:hover {
+        transform: translateY(-3px) scale(1.1) !important;
+        text-shadow: 0 0 15px rgba(201, 169, 97, 0.5) !important;
+    }
+
+    /* Efecto de brillo sutil al hacer hover en reproductor */
+    #btn-reproducir:hover {
+        box-shadow: 0 0 25px rgba(201, 169, 97, 0.4);
+    }
+
+    /* Ondas animadas */
+    @keyframes ping {
+        0% {
+            transform: scale(1);
+            opacity: 1;
+        }
+        75%, 100% {
+            transform: scale(2.5);
+            opacity: 0;
+        }
+    }
+
+    .animate-ping {
+        animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+
+    /* Responsivo */
+    @media (max-width: 640px) {
+        #reproductor-fijo {
+            top: 0.75rem;
+            right: 0.75rem;
+        }
+    }
+</style>

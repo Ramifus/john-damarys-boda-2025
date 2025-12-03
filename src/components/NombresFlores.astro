@@ -1,9 +1,46 @@
 ---
-// ComponenteInvitacion.astro
+// NombresFlores.astro (ComponenteInvitacion.astro)
 ---
 
 <section class="relative bg-white w-full min-h-screen overflow-hidden">
     
+    <!-- REPRODUCTOR DE MÚSICA - Fijo en la esquina superior derecha SIN EFECTOS -->
+    <div id="reproductor-fijo" class="fixed top-4 right-4 z-40">
+        
+        <!-- Círculo del reproductor con efecto blur -->
+        <button 
+            id="btn-reproducir"
+            class="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full backdrop-blur-md bg-gradient-to-br from-[#C9A961]/30 to-[#6B7154]/30 shadow-xl flex items-center justify-center border-2 border-white/40"
+            title="Reproducir/Pausar música"
+        >
+            <!-- Ícono de Play -->
+            <svg 
+                id="icono-play" 
+                class="hidden w-6 h-6 sm:w-8 sm:h-8 text-white drop-shadow-lg"
+                fill="currentColor" 
+                viewBox="0 0 24 24"
+            >
+                <path d="M8 5v14l11-7z"/>
+            </svg>
+            
+            <!-- Ícono de Pause (visible al inicio) -->
+            <svg 
+                id="icono-pause" 
+                class="w-6 h-6 sm:w-8 sm:h-8 text-white drop-shadow-lg"
+                fill="currentColor" 
+                viewBox="0 0 24 24"
+            >
+                <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Audio element (oculto) SIN autoplay -->
+    <audio id="audio-player" preload="auto" loop>
+        <source src="/audio/melodia.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
     <!-- Imagen Principal con desvanecimiento -->
     <div class="relative w-full">
         <!-- Imagen principal -->
@@ -57,13 +94,85 @@
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════ -->
-<!-- 🎬 ANIMACIONES CON GSAP                                     -->
+<!-- 🎬 ANIMACIONES CON GSAP Y REPRODUCTOR                       -->
 <!-- ═══════════════════════════════════════════════════════════ -->
 <script>
     import { gsap } from "gsap";
 
     document.addEventListener("DOMContentLoaded", () => {
         console.log("🎊 Iniciando animaciones de invitación...");
+
+        // ═══ REPRODUCTOR DE MÚSICA - Inicia automáticamente cuando se carga el componente ═══
+        const audio = document.getElementById("audio-player") as HTMLAudioElement;
+        const btnReproducir = document.getElementById("btn-reproducir");
+        const iconoPlay = document.getElementById("icono-play");
+        const iconoPause = document.getElementById("icono-pause");
+
+        let estaReproduciendo = false;
+
+        // Función para intentar reproducir con manejo de errores
+        const intentarReproducir = async () => {
+            try {
+                await audio?.play();
+                estaReproduciendo = true;
+                iconoPlay?.classList.add("hidden");
+                iconoPause?.classList.remove("hidden");
+                console.log("🎵 Música iniciada automáticamente");
+            } catch (error) {
+                console.log("⚠️ No se pudo reproducir automáticamente, esperando interacción del usuario");
+                estaReproduciendo = false;
+                iconoPlay?.classList.remove("hidden");
+                iconoPause?.classList.add("hidden");
+            }
+        };
+
+        // ⭐ INICIAR MÚSICA AUTOMÁTICAMENTE AL CARGAR ESTE COMPONENTE
+        // Pequeño delay para asegurar que el componente está completamente cargado
+        setTimeout(() => {
+            intentarReproducir();
+        }, 300);
+
+        // Backup: intentar reproducir con la primera interacción si falló el autoplay
+        const iniciarConInteraccion = () => {
+            if (!estaReproduciendo) {
+                intentarReproducir();
+            }
+        };
+
+        // Escuchar una sola vez cualquier clic en la página
+        document.addEventListener("click", iniciarConInteraccion, { once: true });
+        document.addEventListener("touchstart", iniciarConInteraccion, { once: true });
+
+        // Funcionalidad del botón play/pause
+        btnReproducir?.addEventListener("click", (e) => {
+            e.stopPropagation(); // Evitar que active el listener de iniciarConInteraccion
+            
+            if (!estaReproduciendo) {
+                // Reproducir música
+                audio?.play();
+                estaReproduciendo = true;
+                
+                // Cambiar iconos
+                iconoPlay?.classList.add("hidden");
+                iconoPause?.classList.remove("hidden");
+                
+            } else {
+                // Pausar música
+                audio?.pause();
+                estaReproduciendo = false;
+                
+                // Cambiar iconos
+                iconoPlay?.classList.remove("hidden");
+                iconoPause?.classList.add("hidden");
+            }
+        });
+
+        // Reiniciar cuando termine la canción (aunque tiene loop)
+        audio?.addEventListener("ended", () => {
+            estaReproduciendo = false;
+            iconoPlay?.classList.remove("hidden");
+            iconoPause?.classList.add("hidden");
+        });
 
         // ═══ IMAGEN PRINCIPAL - Fade in desde arriba ═══
         gsap.fromTo(
@@ -188,5 +297,13 @@
     .letra-animada:hover {
         transform: translateY(-3px) scale(1.1) !important;
         text-shadow: 0 0 15px rgba(201, 169, 97, 0.5) !important;
+    }
+
+    /* Responsivo */
+    @media (max-width: 640px) {
+        #reproductor-fijo {
+            top: 0.75rem;
+            right: 0.75rem;
+        }
     }
 </style>
