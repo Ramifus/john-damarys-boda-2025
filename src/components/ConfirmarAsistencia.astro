@@ -52,7 +52,9 @@
                     <option value="1">1 persona</option>
                     <option value="2">2 personas</option>
                     <option value="3">3 personas</option>
-                 
+                    <option value="4">4 personas</option>
+                    <option value="5">5 personas</option>
+                </select>
             </div>
         </div>
 
@@ -195,8 +197,8 @@
 
         // ═══ FUNCIONALIDAD DEL BOTÓN WHATSAPP ═══
         const btnConfirmar = document.getElementById("btn-confirmar");
-        const inputNombre = document.getElementById("nombre-invitado");
-        const selectCantidad = document.getElementById("cantidad-asistentes");
+        const inputNombre = document.getElementById("nombre-invitado") as HTMLInputElement;
+        const selectCantidad = document.getElementById("cantidad-asistentes") as HTMLSelectElement;
         const formulario = document.getElementById("formulario-asistencia");
         const botonContainer = document.getElementById("boton-asistencia");
         const mensajeExito = document.getElementById("mensaje-exito");
@@ -233,7 +235,7 @@
             // Construir el mensaje para WhatsApp
             const mensaje = `Hola! Confirmo mi asistencia a la boda 💒\n\n` +
                           `👤 Nombre: ${nombre}\n` +
-                          `👥 Cantidad de asistentes: ${cantidad} persona${cantidad > 1 ? 's' : ''}\n\n` +
+                          `👥 Cantidad de asistentes: ${cantidad} persona${Number(cantidad) > 1 ? 's' : ''}\n\n` +
                           `¡Nos vemos en el gran día! 🎉`;
 
             // Número de WhatsApp (CAMBIA ESTE NÚMERO por el número real)
