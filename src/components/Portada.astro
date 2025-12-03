@@ -31,8 +31,8 @@
                 
                 <!-- Nombres de los novios DENTRO del marco -->
                 <div class="absolute inset-0 flex flex-col items-center justify-center px-8">
-                    <h2 id="nombre-camila" class="font-great-vibes text-5xl sm:text-6xl md:text-7xl text-[#8b8b8b] tracking-wide text-center">
-                        Camila
+                    <h2 id="nombre-john" class="font-great-vibes text-5xl sm:text-6xl md:text-7xl text-[#8b8b8b] tracking-wide text-center">
+                        John
                     </h2>
                     
                     <div id="ampersand" class="flex items-center gap-3 my-3">
@@ -41,8 +41,8 @@
                         <div class="w-12 h-px bg-[#8b8b8b]"></div>
                     </div>
                     
-                    <h2 id="nombre-alejandro" class="font-great-vibes text-5xl sm:text-6xl md:text-7xl text-[#8b8b8b] tracking-wide text-center">
-                        Alejandro
+                    <h2 id="nombre-damarys" class="font-great-vibes text-5xl sm:text-6xl md:text-7xl text-[#8b8b8b] tracking-wide text-center">
+                        Damarys
                     </h2>
                 </div>
             </div>
@@ -99,11 +99,11 @@
             delay: 1.5
         });
 
-        // ═══ NOMBRE CAMILA - Letra por letra ═══
-        const textoCamila = "Camila";
-        const contenedorCamila = document.getElementById("nombre-camila");
-        if (contenedorCamila) {
-            contenedorCamila.innerHTML = textoCamila
+        // ═══ NOMBRE JOHN - Letra por letra ═══
+        const textoJohn = "John";
+        const contenedorJohn = document.getElementById("nombre-john");
+        if (contenedorJohn) {
+            contenedorJohn.innerHTML = textoJohn
                 .split("")
                 .map(
                     (letra) =>
@@ -116,7 +116,7 @@
                 )
                 .join("");
 
-            gsap.to("#nombre-camila .letra-animada", {
+            gsap.to("#nombre-john .letra-animada", {
                 opacity: 1,
                 y: 0,
                 scale: 1,
@@ -135,11 +135,11 @@
             { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(2)", delay: 1.3 }
         );
 
-        // ═══ NOMBRE ALEJANDRO - Letra por letra ═══
-        const textoAlejandro = "Alejandro";
-        const contenedorAlejandro = document.getElementById("nombre-alejandro");
-        if (contenedorAlejandro) {
-            contenedorAlejandro.innerHTML = textoAlejandro
+        // ═══ NOMBRE DAMARYS - Letra por letra ═══
+        const textoDamarys = "Damarys";
+        const contenedorDamarys = document.getElementById("nombre-damarys");
+        if (contenedorDamarys) {
+            contenedorDamarys.innerHTML = textoDamarys
                 .split("")
                 .map(
                     (letra) =>
@@ -152,7 +152,7 @@
                 )
                 .join("");
 
-            gsap.to("#nombre-alejandro .letra-animada", {
+            gsap.to("#nombre-damarys .letra-animada", {
                 opacity: 1,
                 y: 0,
                 scale: 1,
