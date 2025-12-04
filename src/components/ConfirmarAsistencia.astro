@@ -2,7 +2,7 @@
 // ComponenteConfirmarAsistencia.astro
 ---
 
-<section class="relative bg-white w-full mt-8 py-4 px-6">
+<section class="relative bg-white w-full mt-8  py-4 px-6">
     
     <div class="max-w-lg mx-auto text-center">
         
@@ -29,73 +29,25 @@
             </p>
         </div>
 
-        <!-- Formulario de confirmación -->
-        <div id="formulario-asistencia" class="mb-8 space-y-4">
-            <!-- Input de nombre -->
-            <div>
-                <input 
-                    type="text" 
-                    id="nombre-invitado" 
-                    placeholder="Tu nombre completo"
-                    class="w-full px-4 py-3 border-2 border-[#C9A961] rounded-lg text-[#6B6B6B] font-serif text-sm sm:text-base focus:outline-none focus:border-[#6B7154] transition-colors"
-                    required
-                />
-            </div>
-
-            <!-- Input de cantidad de asistentes -->
-            <div>
-                <select 
-                    id="cantidad-asistentes"
-                    class="w-full px-4 py-3 border-2 border-[#C9A961] rounded-lg text-[#6B6B6B] font-serif text-sm sm:text-base focus:outline-none focus:border-[#6B7154] transition-colors"
-                >
-                    <option value="">¿Cuántos asistirán?</option>
-                    <option value="1">1 persona</option>
-                    <option value="2">2 personas</option>
-                    <option value="3">3 personas</option>
-                    <option value="4">4 personas</option>
-                    <option value="5">5 personas</option>
-                </select>
-            </div>
-        </div>
-
         <!-- Botón "CONFIRMAR ASISTENCIA" -->
-        <div id="boton-asistencia">
-            <button 
-                id="btn-confirmar"
-                class="inline-block bg-[#6B7154] text-white px-8 py-3 rounded-lg text-sm sm:text-base font-serif uppercase tracking-wider hover:bg-[#5a5e45] transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer"
-            >
-                CONFIRMAR ASISTENCIA
-            </button>
-        </div>
+      <!-- Botón "CONFIRMAR ASISTENCIA" -->
+<div id="boton-asistencia">
+    <a 
+        href="https://wa.link/ncc51k"
+        target="_blank"
+        class="inline-block bg-[#6B7154] text-white px-8 py-3 rounded-lg text-sm sm:text-base font-serif uppercase tracking-wider hover:bg-[#5a5e45] transition-all duration-300 shadow-md hover:shadow-lg"
+    >
+        CONFIRMAR ASISTENCIA
+    </a>
+</div>
 
-        <!-- Mensaje de éxito (oculto inicialmente) -->
-        <div id="mensaje-exito" class="hidden mt-8">
-            <div class="bg-green-50 border-2 border-green-500 rounded-xl p-6 transform">
-                <!-- Ícono de check animado -->
-                <div class="flex justify-center mb-4">
-                    <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center">
-                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
-                        </svg>
-                    </div>
-                </div>
-                <!-- Texto de confirmación -->
-                <h4 class="text-green-700 text-xl font-serif font-bold mb-2">
-                    ¡Confirmación Enviada!
-                </h4>
-                <p class="text-green-600 text-sm font-serif">
-                    Gracias por confirmar tu asistencia.<br />
-                    ¡Nos vemos en el gran día! 💒✨
-                </p>
-            </div>
-        </div>
 
     </div>
 
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════ -->
-<!-- 🎬 ANIMACIONES CON GSAP Y FUNCIONALIDAD WHATSAPP            -->
+<!-- 🎬 ANIMACIONES CON GSAP                                     -->
 <!-- ═══════════════════════════════════════════════════════════ -->
 <script>
     import { gsap } from "gsap";
@@ -159,24 +111,6 @@
             }
         );
 
-        // ═══ FORMULARIO ═══
-        gsap.fromTo(
-            "#formulario-asistencia",
-            { opacity: 0, y: 20 },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 0.8,
-                ease: "power2.out",
-                scrollTrigger: {
-                    trigger: "#formulario-asistencia",
-                    start: "top 80%",
-                    once: true
-                },
-                delay: 0.6
-            }
-        );
-
         // ═══ BOTÓN "CONFIRMAR ASISTENCIA" ═══
         gsap.fromTo(
             "#boton-asistencia",
@@ -191,155 +125,9 @@
                     start: "top 80%",
                     once: true
                 },
-                delay: 0.8
+                delay: 0.7
             }
         );
-
-        // ═══ FUNCIONALIDAD DEL BOTÓN WHATSAPP ═══
-        const btnConfirmar = document.getElementById("btn-confirmar");
-        const inputNombre = document.getElementById("nombre-invitado") as HTMLInputElement;
-        const selectCantidad = document.getElementById("cantidad-asistentes") as HTMLSelectElement;
-        const formulario = document.getElementById("formulario-asistencia");
-        const botonContainer = document.getElementById("boton-asistencia");
-        const mensajeExito = document.getElementById("mensaje-exito");
-
-        btnConfirmar?.addEventListener("click", () => {
-            const nombre = inputNombre?.value.trim();
-            const cantidad = selectCantidad?.value;
-
-            // Validar que los campos estén completos
-            if (!nombre) {
-                // Animación de error en el input
-                gsap.to("#nombre-invitado", {
-                    x: [-10, 10, -10, 10, 0],
-                    duration: 0.4,
-                    ease: "power2.out"
-                });
-                alert("Por favor, ingresa tu nombre completo");
-                inputNombre?.focus();
-                return;
-            }
-
-            if (!cantidad) {
-                // Animación de error en el select
-                gsap.to("#cantidad-asistentes", {
-                    x: [-10, 10, -10, 10, 0],
-                    duration: 0.4,
-                    ease: "power2.out"
-                });
-                alert("Por favor, selecciona cuántas personas asistirán");
-                selectCantidad?.focus();
-                return;
-            }
-
-            // Construir el mensaje para WhatsApp
-            const mensaje = `Hola! Confirmo mi asistencia a la boda 💒\n\n` +
-                          `👤 Nombre: ${nombre}\n` +
-                          `👥 Cantidad de asistentes: ${cantidad} persona${Number(cantidad) > 1 ? 's' : ''}\n\n` +
-                          `¡Nos vemos en el gran día! 🎉`;
-
-            // Número de WhatsApp (CAMBIA ESTE NÚMERO por el número real)
-            const numeroWhatsApp = "59178762918"; // Formato: código de país + número sin espacios ni signos
-            
-            // Crear URL de WhatsApp
-            const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
-            
-            // Abrir WhatsApp
-            window.open(urlWhatsApp, "_blank");
-
-            // ═══ ANIMACIÓN DE ÉXITO ═══
-            // Ocultar formulario y botón con animación
-            const timeline = gsap.timeline();
-            
-            timeline
-                .to([formulario, botonContainer], {
-                    opacity: 0,
-                    y: -20,
-                    duration: 0.5,
-                    ease: "power2.in",
-                    onComplete: () => {
-                        formulario?.classList.add("hidden");
-                        botonContainer?.classList.add("hidden");
-                        mensajeExito?.classList.remove("hidden");
-                    }
-                })
-                .fromTo(mensajeExito,
-                    { 
-                        opacity: 0, 
-                        scale: 0.5,
-                        y: 30
-                    },
-                    { 
-                        opacity: 1, 
-                        scale: 1,
-                        y: 0,
-                        duration: 0.6,
-                        ease: "back.out(1.7)"
-                    }
-                )
-                // Animación del check
-                .fromTo("#mensaje-exito svg",
-                    { 
-                        scale: 0,
-                        rotation: -180
-                    },
-                    { 
-                        scale: 1,
-                        rotation: 0,
-                        duration: 0.5,
-                        ease: "back.out(2)"
-                    },
-                    "-=0.3"
-                )
-                // Animación pulsante del círculo verde
-                .to("#mensaje-exito .bg-green-500", {
-                    scale: [1, 1.1, 1],
-                    duration: 0.6,
-                    ease: "power1.inOut",
-                    repeat: 2
-                });
-
-            // Confetti opcional (partículas de celebración)
-            crearConfetti();
-        });
-
-        // ═══ FUNCIÓN PARA CREAR CONFETTI ═══
-        function crearConfetti() {
-            const colors = ["#C9A961", "#6B7154", "#4ade80", "#fbbf24"];
-            const confettiContainer = document.createElement("div");
-            confettiContainer.style.cssText = "position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999;";
-            document.body.appendChild(confettiContainer);
-
-            for (let i = 0; i < 50; i++) {
-                const confetti = document.createElement("div");
-                confetti.style.cssText = `
-                    position: absolute;
-                    width: 10px;
-                    height: 10px;
-                    background: ${colors[Math.floor(Math.random() * colors.length)]};
-                    top: 50%;
-                    left: 50%;
-                    opacity: 1;
-                    border-radius: ${Math.random() > 0.5 ? '50%' : '0'};
-                `;
-                confettiContainer.appendChild(confetti);
-
-                gsap.to(confetti, {
-                    x: (Math.random() - 0.5) * 800,
-                    y: Math.random() * 600 - 300,
-                    rotation: Math.random() * 360,
-                    opacity: 0,
-                    duration: 1.5 + Math.random(),
-                    ease: "power2.out",
-                    onComplete: () => {
-                        confetti.remove();
-                        if (confettiContainer.children.length === 0) {
-                            confettiContainer.remove();
-                        }
-                    }
-                });
-            }
-        }
 
         console.log("✨ Animaciones de confirmar asistencia completadas!");
     });
@@ -353,26 +141,7 @@
     }
 
     /* Animación del botón al hacer clic */
-    #boton-asistencia button:active {
+    #boton-asistencia a:active {
         transform: scale(0.95);
-    }
-
-    /* Placeholder color */
-    input::placeholder {
-        color: #9CA3AF;
-    }
-
-    /* Animación del check SVG */
-    #mensaje-exito svg path {
-        stroke-dasharray: 100;
-        stroke-dashoffset: 100;
-        animation: draw-check 0.6s ease-out forwards;
-        animation-delay: 0.3s;
-    }
-
-    @keyframes draw-check {
-        to {
-            stroke-dashoffset: 0;
-        }
     }
 </style>
